@@ -12,7 +12,7 @@
 #include "bond.h"
 
 class SiteRP {
-    static const int ll = 64;                                                                                    // The number of vertices on a side of the lattice
+    static const int ll = 32;;                                                                                    // The number of vertices on a side of the lattice
 private:
     static const int size = ll * ll;                                                                                // The number of vertices in the graph
 public:

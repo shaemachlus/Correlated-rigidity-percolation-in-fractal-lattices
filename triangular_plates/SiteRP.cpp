@@ -831,14 +831,14 @@
         for (std::vector<Bond>::iterator it = edges.begin(); it != edges.end() ; ++it) {
             int site_I = it->vertices.first;
             int site_J = it->vertices.second; //the two sites of the rigid bond
-
+	// commented out due to error being produced about using iterator
             // if rcluster_site has not stored the RigidIndex, store it
-            if (find(rcluster_site[site_I].begin(),rcluster_site[site_I].end(),it->RigidIndex) == rcluster_site[site_I].end()){
-                rcluster_site[site_I].push_back(it->RigidIndex);
-            }
-            if (find(rcluster_site[site_J].begin(),rcluster_site[site_J].end(),it->RigidIndex) == rcluster_site[site_J].end()){
-                rcluster_site[site_J].push_back(it->RigidIndex);
-            }
+            //if (find(rcluster_site[site_I].begin(),rcluster_site[site_I].end(),it->RigidIndex) == rcluster_site[site_I].end()){
+            //    rcluster_site[site_I].push_back(it->RigidIndex);
+            //}
+            //if (find(rcluster_site[site_J].begin(),rcluster_site[site_J].end(),it->RigidIndex) == rcluster_site[site_J].end()){
+            //    rcluster_site[site_J].push_back(it->RigidIndex);
+            //}
             //push the rigid indices to the rcluster_site in order to store the info
         }
 

@@ -23,8 +23,8 @@ int main()
     int seed;
     srand(time(NULL));
     SiteRP a;
-    //a.OneTrialTest(0, 1);
-    a.PlotNetworkTest();
+    a.OneTrialTest(0, 1);
+    //a.PlotNetworkTest();
     sg_coords(a.n,a.s);
     return 0;
 }
