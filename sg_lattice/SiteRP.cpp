@@ -1,6 +1,8 @@
 //
 // Created by Zeb & Shang.
 //
+// SG-specific edits made by Shae as indicated
+//
 
 #include <iostream>
 #include <iomanip>
@@ -90,11 +92,10 @@
     }
 
 
-
+// finds the neighbor of a given site in a particular direction, either on a single SG (s=1) or on a lattice, in a SG lattice
     int SiteRP::choosedir_sg(int site, int d)
     {
         int nb;
-        
         if(s == 1)
         {
             nb = DoEverything_osg(site, n, size, d);
@@ -371,11 +372,6 @@
             edges.push_back(Bond(i, j));
         }
         else {
-            //std::ofstream debuginfo;
-            //debuginfo.open("debug_output.txt", std::ios::app);
-            //debuginfo << "@@@@@@@@@@@@" << std::endl;
-            //debuginfo << "redundant bond: " << i << "\t" << j << std::endl;
-            //debuginfo <<numbonds - 2* size + 3 << std::endl;
             addedge(i, j);  //doing this just for the aesthetic purposes, the line below should be uncommented typically
             //addredundant(i, j);            // otherwise, we leave the pebbles where we shuffled them and
             rbonds++;
@@ -434,32 +430,19 @@
 
 // listedges lists the edges from site i
     void SiteRP::listedges(int i) {
-
-       // std::ofstream debuginfo;
-       // debuginfo.open("debug_output.txt", std::ios::app);
-        //debuginfo << i << " (" << pc[i] << ") points to ";
         
         for (int index = 0; index < thegraph[i].size(); index++) {
             
-           // debuginfo << thegraph[i].at(index) << " ";
+           std::cout << thegraph[i].at(index) << " ";
         }
-
-    //debuginfo << std::endl;
     }
 
 // listalledges lists all the edges from the sites
     void SiteRP::listalledges() {
         
-        //std::ofstream debuginfo;
-        //debuginfo.open("debug_output.txt", std::ios::app);
-        
-       // debuginfo << "--------------------" << std::endl;
-        
         for (int index = 0; index < size; index++) {
             listedges(index);
         }
-        
-       //debuginfo.close();
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -533,12 +516,11 @@
             giantrigidcluster[bondindex].clear();
 
         }
-
         initgiantrigidcluster();
-
         return numparts;
     }
 
+// The original addtricluster2 function from Shang and Zeb's original pebble game code has been modified to work for an SG lattice
     void SiteRP::addtricluster2_sg(int site, float c) // Has already added the rigidcluster function, as well as the spanning cluster
     {
         int total_neighbors;
@@ -546,7 +528,7 @@
         
         if (occ[site] == 0) {
             int newsite;
-            
+            //identifies the type of vertex site is and uses that to determine neighbors 
             //Type 2 vertex
             if (choosedir_sg(site, 1) == -1 && choosedir_sg(site, 2) == -1)
             {
@@ -591,7 +573,9 @@
                 }
                 
                 double span_check_start;
-                
+                //saves time by checking for a spanning rigid cluster only after the 
+		//lattice is sufficiently populated. These lower bounds are only written
+		//for up to n=5, the default is no lower bound. 
                 switch(n)
                 {
                     case 1:
@@ -613,7 +597,8 @@
                         span_check_start = 0.0;
                         break;
                 }
-                
+               //another time saving feature so that the spanning rigid cluster is not
+	       //checked after every single site 
                 int check_every = size * 1.0/256;
                 //int check_every = 1;
                 
@@ -627,16 +612,14 @@
                     rigidcluster();
                 
                     int span = spanningrcluster();
-                    log(span);
-                
-                    // choose the critical position to get rigid cluster decomposition
-                    if (SpanLastStatus == 0 && span == 1){
-                        StoreRigidInfoOfSite();
+                    log(span); // choose the critical position to get rigid cluster decomposition 
+		    if (SpanLastStatus == 0 && span == 1){ 
+			StoreRigidInfoOfSite();
                         
                         //critical packing fraction
                         double pc = double(numparts)/size;
                         
-                        //critical volume density
+                        //critical volume density, output to file
                         double phi = 2 * numparts * (0.25) * (M_PI)/(ll * ll * sqrt(3));
                         
                         std::ofstream vals;
@@ -789,6 +772,7 @@
             int site_I = it->vertices.first;
             int site_J = it->vertices.second; //the two sites of the rigid bond
 
+// the following block of text was commented out which is used in computing cluster statistic information in SiteRP.cpp. This was not needed for my research, but it may be important for future users.
             // if rcluster_site has not stored the RigidIndex, store it
             /*if (std::find(rcluster_site[site_I].begin(),rcluster_site[site_I].end(),it->RigidIndex) == rcluster_site[site_I].end()){
                 rcluster_site[site_I].push_back(it->RigidIndex);
@@ -903,7 +887,8 @@
         rclusterfile.close();
     }
 
-    void SiteRP::addtricluster2_withoutRIGID_sg(int site, float c) // Has not added the rigidcluster function, as well as the spanning cluster
+// same function as addtricluster2_sg except it does use the rigidcluster function nor does it check for the spanning cluster 
+    void SiteRP::addtricluster2_withoutRIGID_sg(int site, float c)
     {
         int total_neighbors;
         int numneighbors;

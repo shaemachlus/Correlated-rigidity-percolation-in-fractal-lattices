@@ -1,9 +1,5 @@
 //
-//  one_open_sg.hpp
-//  connections
-//
 //  Created by Shae Machlus on 7/5/19.
-//  Copyright © 2019 Shae Machlus. All rights reserved.
 //
 
 #ifndef one_open_sg_hpp
@@ -15,8 +11,6 @@ int TotalVerts_osg(int N);
 
 //Returns the number of vertices along the bottom edge of the unit cell
 int EdgeVerts_osg(int N);
-
-void SG_VertList_osg(std::vector<int> &VERTICES, int N);
 
 //The element slots represent vertices, and contain the layer number at which that vertex can be found
 void FillLayers_osg(std::vector<int> &VERTICES, std::vector<int> &LAYERS);

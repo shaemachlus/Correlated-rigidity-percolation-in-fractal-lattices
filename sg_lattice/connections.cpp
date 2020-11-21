@@ -263,6 +263,7 @@ int Depth(vector<int> &lays, int dum, int dum_layer, int size)
     return track;
 }
 
+// given all the information about the site, returns its neighbor in the deisred direction
 int DoEverything(int dum, int n, int s, int size, int d)
 {
     int ll = EdgeVerts(n, s);                          //The number of vertices along one edge of a lattice strip

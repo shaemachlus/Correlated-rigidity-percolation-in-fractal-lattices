@@ -2,7 +2,7 @@
 //  Created by Shae Machlus on 6/20/19.
 //
 //////////////////////////////////////////
-//SIERPENSKI GASKET COORDINATE GENERATOR//
+//SIERPENSKI GASKET LATTICE COORDINATE GENERATOR
 //////////////////////////////////////////
 
 #include <iostream>

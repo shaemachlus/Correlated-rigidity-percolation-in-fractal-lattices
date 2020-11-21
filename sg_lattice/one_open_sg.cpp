@@ -1,7 +1,4 @@
 //
-//  one_open_sg.cpp
-//  connections
-//
 //  Created by Shae Machlus on 7/5/19.
 //
 

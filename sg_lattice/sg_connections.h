@@ -14,7 +14,7 @@ int EdgeVerts(int N, int S);
 //Checks to make sure the number of vertices is equal to the size of the lattice
 void SizeCheck(std::vector<int> VERTICES, int N);
 
-//
+//Populates the list vertices
 void SG_VertList(std::vector<int> &VERTICES, int N);
 
 //Expands the list horizontally (right) to include a whole strip of the lattice

@@ -1,6 +1,6 @@
 //
 // Created by Shang Zhang on 4/13/17.
-//
+// Edits made by Shae Machlus to make code applicable for an SG lattice
 
 #ifndef PEBBLEGAMETEST_SITERP_H
 #define PEBBLEGAMETEST_SITERP_H
@@ -14,14 +14,19 @@
 #include "one_open_sg.hpp"
 
 class SiteRP {
-    
+
+
     static const int ll = 28;     // The number of vertices on a side of the lattice
+
+// Fractal RP specific begin
 private:
-    static const int size = 637;     // The number of vertices in the graph
+    static const int size = 637; // The number of vertices in the graph, ll*ll for triangular lattice
 
 public:
-    static const int n = 2;
-    static const int s = 7;
+    static const int n = 2;  // number of fractal iterations
+    static const int s = 7;  // size of the lattice in units of SG's
+// Fractal RP specific end
+
     int flag_for_span_check = 0;
     
     short pc[size];                // Creates the pebble count at each vertex.
@@ -104,7 +109,7 @@ public:
     int dir6(int site);
     int choosedir(int site, int d);
 
-//Shae function--finding a neighbor in the sg lattice
+//Finding a neighboring site in a specific direction in the SG lattice
     int choosedir_sg(int site, int d);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -213,7 +218,7 @@ public:
 
 // initemptytrigraph() updates numbonds, rbonds, thegraph, rgraph, placesbeen to a triangular graph with no particles or bonds
     int initemptytrigraph();
-    void addtricluster2(int site, float c);
+    // equivalent function for an SG lattice
     void addtricluster2_sg(int site, float c);
     void onetritrial2(long long int maxout, float c);
     void multictrial(long long int maxout, float c1, float c2, float dc, int numtrials);
@@ -253,7 +258,6 @@ public:
 // We need to pick out the giant rigid cluster from the network and then determine if it is the spanning cluster.
 
     bool spanningrcluster();
-    bool spanningrcluster_sg();
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -264,7 +268,8 @@ public:
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void onetritrial2_plot(float p, float c);
-    void addtricluster2_withoutRIGID(int site, float c); // Has not added the rigidcluster function, as well as the spanning cluster
+    void addtricluster2_withoutRIGID(int site, float c);
+    //SG lattice equivalent function
     void addtricluster2_withoutRIGID_sg(int site, float c);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
