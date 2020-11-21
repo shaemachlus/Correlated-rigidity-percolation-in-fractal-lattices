@@ -20,15 +20,6 @@
 
     // addedge adds an edge pointing from vertex i to vertex j in thegraph
     void SiteRP::addedge(int i, int j) {
-        
-        /*std::ofstream debuginfo;
-        debuginfo.open("debug_output.txt", std::ios::app);
-        debuginfo << "***************************" << std::endl;
-        debuginfo << "addedge function: ";
-        debuginfo << i << "\t" << j << std::endl;
-        debuginfo.close();
-        listalledges();*/
-        
         thegraph[i].push_back(j);
     }
 
@@ -232,12 +223,6 @@
         }
         pc[ender]++; // Finally, we add a pebble to the first site in the path, we've moved a pebble from the end to the start, reversing edges along the way
         
-        /*std::ofstream debuginfo;
-        debuginfo.open("debug_output.txt", std::ios::app);
-        debuginfo << "~~~~~~~~~~~~~" << std::endl;
-        debuginfo << "After Reverse Path for " << starter << std::endl;
-        listalledges();
-        debuginfo.close();*/
     }
 
 
@@ -447,14 +432,6 @@
             pc[i]--;
         }
         else {
-            
-            /*std::ofstream debuginfo;
-            debuginfo.open("debug_output.txt", std::ios::app);
-            debuginfo << "@@@@@@@@@@@@" << std::endl;
-            debuginfo << "redundant bond: " << i << "\t" << j << std::endl;
-            debuginfo <<numbonds - 2* size + 3 << std::endl;
-            debuginfo.close();*/
-            
             addredundant(i, j);            // otherwise, we leave the pebbles where we shuffled them and
             rbonds++;
         }                                // place only a redundant bond
@@ -512,23 +489,6 @@
 
 // listedges lists the edges from site i
     void SiteRP::listedges(int i) {
-
-    /*std::cout << "\nvertex number " << i << " points towards the following vertices:\n";
-
-        for (int index = 0; index < thegraph[i].size(); index++) {
-            std::cout << thegraph[i].at(index) << " ";
-        }*/
-        
-        /*std::ofstream debuginfo;
-        debuginfo.open("debug_output.txt", std::ios::app);
-        debuginfo << i << " (" << pc[i] << ") points to ";
-        
-        for (int index = 0; index < thegraph[i].size(); index++) {
-            
-            debuginfo << thegraph[i].at(index) << " ";
-        }
-        debuginfo << std::endl;
-        debuginfo.close();*/
         
         std::ofstream lines;
         lines.open("bonds_from_pebble.txt", std::ios::app);
@@ -541,10 +501,6 @@
 
 // listalledges lists all the edges from the sites
     void SiteRP::listalledges() {
-        
-        /*std::ofstream debuginfo;
-        debuginfo.open("debug_output.txt", std::ios::app);
-        debuginfo << "--------------------" << std::endl;*/
         
         for (int index = 0; index < size; index++){
             listedges(index);
@@ -631,6 +587,8 @@
 
     void SiteRP::addtricluster2(int site, float c) // Has already added the rigidcluster function, as well as the spanning cluster
     {
+      // modified from the original addtricluster2 function so that sites (and bonds)
+      // are only added in groups of three which form upwards pointing triangles 
         int newsite1 = choosedir(site, 2);
         int newsite2 = choosedir(site, 3);;
             
@@ -657,8 +615,10 @@
         occsites << newsite1 << std::endl;
         occsites << newsite2 << std::endl;
         occsites.close();
+	
 
-        
+	// time saving feature so that we aren't checking for a spanning rigid cluster after
+	// the addition of every single site
         int check_every = size * 6 * 1.0/256;
         
         if(check_every == 0)
@@ -682,14 +642,11 @@
                 //critical packing fraction
                 double pc = double(tricount)/size;
                 
-                //critical volume density
-                double phi = 2 * numparts * (0.25) * (M_PI)/(ll * ll * sqrt(3));
-                
                 std::ofstream vals;
                 vals.open("n0s" + std::to_string(ll) + "macro_data.txt", std::ios::app);
                 vals << std::fixed << std::showpoint;
                 vals << std::setprecision(6) << pc << std::endl;
-                std::cout << std::setprecision(6) << pc << std::endl;
+                std::cout << "The critical packing fraction of the lattice is " << std::setprecision(6) << pc << std::endl;
                 vals.close();
             }
 
@@ -815,8 +772,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// THE RIGID CLUSTER INFO (FOR CLUSTER STATISTICS INFO)
-
+// THE RIGID CLUSTER INFO (FOR CLUSTER STATISTICS INFO) 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -831,14 +787,15 @@
         for (std::vector<Bond>::iterator it = edges.begin(); it != edges.end() ; ++it) {
             int site_I = it->vertices.first;
             int site_J = it->vertices.second; //the two sites of the rigid bond
-	// commented out due to error being produced about using iterator
+
+// the following block of text was commented out which is used in computing cluster statistic information in SiteRP.cpp. This was not needed for my research, but it may be important for future users.
             // if rcluster_site has not stored the RigidIndex, store it
-            //if (find(rcluster_site[site_I].begin(),rcluster_site[site_I].end(),it->RigidIndex) == rcluster_site[site_I].end()){
-            //    rcluster_site[site_I].push_back(it->RigidIndex);
-            //}
-            //if (find(rcluster_site[site_J].begin(),rcluster_site[site_J].end(),it->RigidIndex) == rcluster_site[site_J].end()){
-            //    rcluster_site[site_J].push_back(it->RigidIndex);
-            //}
+            /*if (std::find(rcluster_site[site_I].begin(),rcluster_site[site_I].end(),it->RigidIndex) == rcluster_site[site_I].end()){
+                rcluster_site[site_I].push_back(it->RigidIndex);
+            }
+            if (std::find(rcluster_site[site_J].begin(),rcluster_site[site_J].end(),it->RigidIndex) == rcluster_site[site_J].end()){
+                rcluster_site[site_J].push_back(it->RigidIndex);
+            }*/
             //push the rigid indices to the rcluster_site in order to store the info
         }
 

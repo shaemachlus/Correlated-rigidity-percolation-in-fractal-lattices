@@ -26,7 +26,7 @@ int main()
     // the lattice is randomly seeded
     srand(time(NULL));
 
-    // siteRP object is created
+    // SiteRP object is created
     SiteRP a; 
 
     a.OneTrialTest(0, 1);

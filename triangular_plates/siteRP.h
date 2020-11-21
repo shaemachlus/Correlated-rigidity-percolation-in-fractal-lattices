@@ -1,6 +1,6 @@
 //
 // Created by Shang Zhang on 4/13/17.
-//
+// Some edits made by Shae to make it applicable to a lattice of upwards pointing triangular plates
 
 #ifndef PEBBLEGAMETEST_SITERP_H
 #define PEBBLEGAMETEST_SITERP_H
@@ -28,7 +28,7 @@ public:
     int giantindex;                 // The index for the giant rigid cluster
     int SpanLastStatus;             // the last status of whether to have a spanning rigid cluster
     int flag_for_span_check = 0;
-    int tricount = 0;
+    int tricount = 0; //the number of upwards pointing triangular plates present in the lattice
 
     std::vector<int> rcluster_site[size];     // Store all the information about rigid cluster decomposition in sites
     std::vector<int> thegraph[size];        // thegraph is the graph of all loaded edges

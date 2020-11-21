@@ -25,6 +25,7 @@ private:
 public:
     static const int n = 2;  // number of fractal iterations
     static const int s = 7;  // size of the lattice in units of SG's
+    				// note that s=1 corresponds to a single SG with open boundary conditions
 // Fractal RP specific end
 
     int flag_for_span_check = 0;

@@ -1,5 +1,6 @@
 //
 //  Created by Shae Machlus on 7/5/19.
+//  Note that one open SG means a single Sierpinski Gasket with open boundary conditions
 //
 
 #ifndef one_open_sg_hpp

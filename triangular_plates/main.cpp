@@ -4,18 +4,22 @@
 
 #include "siteRP.h"
 #include "bond.h"
-//#include <time.h>
+#include <time.h>
 
 int main()
 {
+    // clear old output 
     remove("bonds_from_pebble.txt");
     remove("occsites_from_pebble.txt");
     remove("rclusterout.txt");
-    int seed = 50;
-    //srand(int(time(NULL)));
-    srand(seed);
+
+    // the lattice is randomly seeded
+    srand(int(time(NULL)));
+    
+    // SiteRP object is created 
     SiteRP a;
+    
     a.OneTrialTest(0.0,1);
-    a.listalledges();
+    a.PlotNetworkTest();
     return 0;
 }
