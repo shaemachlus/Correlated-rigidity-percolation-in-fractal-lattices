@@ -29,7 +29,7 @@ int main()
     // SiteRP object is created
     SiteRP a; 
 
-    a.OneTrialTest(0, 1);
+    //a.OneTrialTest(0, 1);
     a.PlotNetworkTest();
     sg_coords(a.n,a.s);
     return 0;

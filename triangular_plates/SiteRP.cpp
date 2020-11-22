@@ -1021,15 +1021,6 @@
 
         std::cout<<"The size of the giant rigid cluster is "<< giantsize_site <<" with the spanning status in "<<span<<"\n";
 
-        /*std::ofstream outfile;
-        outfile.open("rclusterout.txt");
-        for(int i=0; i < size; i++)
-        {
-            if(occ[i] != 0)
-                outfile << i%ll << "\t" << i/ll << "\t" << !giantrigidcluster[i].empty() << "\n";
-        }
-        outfile.close();*/
-        
         std::ofstream outfile;
         outfile.open("rclusterout.txt");
         for(int i=0; i < size; i++)
@@ -1042,11 +1033,6 @@
             }
         }
          outfile.close();
-        
-        for (int i=0; i < edges.size(); i++){
-        
-        std::cout << edges[i].RigidIndex << " " << edges[i].vertices.first << " "  << edges[i].vertices.second <<  std::endl;
-        }
     }
 
 

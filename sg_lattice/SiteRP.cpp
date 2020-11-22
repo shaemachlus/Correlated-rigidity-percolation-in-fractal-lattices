@@ -627,7 +627,7 @@
                         vals << std::fixed << std::showpoint;
                         vals << std::setprecision(6) << pc << " " << phi << std::endl;
                         vals.close();
-                        std::cout << pc << std::endl;
+                        std::cout << "The critical packing fraction is " << pc << std::endl;
                         flag_for_span_check = 1;
                     }
                 
@@ -1013,18 +1013,16 @@
 
     void SiteRP::PlotNetworkTest() //Generate network plot file
     {
-        float cfor;
+        float cfor = 0.0;
         float p;
 
-        //std::cout<<"Type in network density p: \n";
-        //std::cin>>p;
+        std::cout<<"Type in network density p: \n";
+        std::cin>>p;
         
-        cfor = 0.0;
-        p = 1;
-        int span = 1;
-
         onetritrial2_plot(p,cfor);
         rigidcluster();
+
+        int span = spanningrcluster();
         
         std::ofstream connects;
         connects.open("mathematica_lines_from_pebble.txt", std::ios::app);
@@ -1037,22 +1035,6 @@
         }
         connects.close();
         
-        
-        std::ofstream clusts;
-        clusts.open("clusts_n" + std::to_string(n) + "_s" + std::to_string(s) + ".txt");
-        
-        /*for(int i = 0; i < edges.size(); i++)
-        {
-            clusts << edges[i].vertices.first + 1 << " " << edges[i].RigidIndex << std::endl;
-            clusts << edges[i].vertices.second + 1 << " " << edges[i].RigidIndex << std::endl;
-        }*/
-        
-        for(int i = 0; i < edges.size(); i++)
-         {
-             clusts << edges[i].vertices.first + 1 << " " << edges[i].vertices.second + 1 << " " << edges[i].RigidIndex << std::endl;
-         }
-        clusts.close();
-        
         span = spanningrcluster();
         std::cout<<"The size of the giant rigid cluster is "<< giantsize_site <<" with the spanning status in "<< span <<"\n";
         
@@ -1061,7 +1043,6 @@
         for(int i=0; i < size; i++)
         {
             if(occ[i] != 0){
-                //outfile << i%ll << "\t" << i/ll << "\t" << !giantrigidcluster[i].empty() << "\n";
                 if (!giantrigidcluster[i].empty() == 1)
                 {
                     outfile << i + 1 << std::endl;

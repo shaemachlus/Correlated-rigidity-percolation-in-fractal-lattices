@@ -20,6 +20,9 @@ int main()
     SiteRP a;
     
     a.OneTrialTest(0.0,1);
-    a.PlotNetworkTest();
+    //a.PlotNetworkTest();
+
+    a.listalledges();
+
     return 0;
 }
